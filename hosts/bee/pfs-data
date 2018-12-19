@@ -1,0 +1,22 @@
+defaults="ics_xcuActor ics_ccdActor"
+setups=${SETUPS:-$defaults}
+
+export PFS_SITE=$(host -t txt pfs-site | sed 's/^.* //; s/"//g')
+
+. /software/pfs_launch/bin/setup.sh
+
+cam=$(hostname -s | sed 's/.*-//')
+echo "starting PFS processes on cam=$cam"
+
+for l in $setups; do
+    setup $l
+done
+
+nohup ~pfs/tcp_serial_redirect.py -P 4001 /dev/ttyS2 9600 >>turbo.log 2>&1 &
+
+stageManager --name xcu_$cam xcu start
+stageManager ccd start
+
+# Local variables:
+# mode: sh
+# End:

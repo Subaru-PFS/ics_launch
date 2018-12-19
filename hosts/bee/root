@@ -1,12 +1,13 @@
 # This script is run as root: have fun!
 
-source /software/pfs_launch/bin/setup.sh
+. /software/pfs_launch/bin/setup.sh
 
 # The BEE hardware has digital IO line, used by PFS to control and
 # sense the gatevalve interlock and to control the SAM/ASIC power
 # switch.
 
-setup rtd-aDIO
-insmod $RTD-ADIO_DIR/lib/$(uname -r)/rtd-aDIO.ko
+# setup rtd-aDIO
+RTD_ADIO_DIR=/home/pfs
+/sbin/insmod $RTD-ADIO_DIR/lib/$(uname -r)/rtd-aDIO.ko
 sleep 4
 chmod 666 /dev/rtd*
