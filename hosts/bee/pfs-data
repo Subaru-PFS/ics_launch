@@ -1,21 +1,36 @@
-defaults="ics_xcuActor ics_ccdActor"
-setups=${SETUPS:-$defaults}
-
-export PFS_SITE=$(host -t txt pfs-site | sed 's/^.* //; s/"//g')
-
 . /software/pfs_launch/bin/setup.sh
 
-cam=$(hostname -s | sed 's/.*-//')
-echo "starting PFS processes on cam=$cam"
+# This section will disappear into the actor soon.
+export PFS_SITE=$(host -t txt pfs-site | sed 's/^.* //; s/"//g')
+host=$(hostname -s)
+cam=$(echo $host | sed 's/.*-//')
+arm=${cam:0:1}
 
-for l in $setups; do
-    setup $l
-done
+if test $arm = "n"; then
+    actors="ics_xcuActor ics_hxActor"
+else
+    actors="ics_xcuActor ics_ccdActor"
+fi
+    
+echo "starting PFS processes on cam=$cam"
 
 nohup ~pfs/tcp_serial_redirect.py -P 4001 /dev/ttyS2 9600 >>turbo.log 2>&1 &
 
-stageManager --name xcu_$cam xcu start
-stageManager ccd start
+for actor in $actors; do
+    . setupProd.sh $actor $host -v
+    # version=$(egrep "^$host *$actor" /software/pfs_launch/versions.txt | sed 's/^.* //')
+    # setup $actor $version
+
+    shortName=${actor/ics_/}
+    shortName=${shortName/Actor/}
+    
+    # This will disappear into the actor soon.
+    if test $shortName = "xcu"; then
+        stageManager --name xcu_$cam xcu start
+    else
+        stageManager $shortName start
+    fi
+done
 
 # Local variables:
 # mode: sh
