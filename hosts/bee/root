@@ -6,8 +6,7 @@
 # sense the gatevalve interlock and to control the SAM/ASIC power
 # switch.
 
-# setup rtd-aDIO
-RTD_ADIO_DIR=/home/pfs
-/sbin/insmod $RTD-ADIO_DIR/lib/$(uname -r)/rtd-aDIO.ko
+setup ics_xcu_rtdADIO
+/sbin/insmod $ICS_XCU_RTDADIO_DIR/driver/rtd-aDIO.ko
 sleep 4
 chmod 666 /dev/rtd*
