@@ -3,8 +3,12 @@ trap 'IFS=$OIFS' EXIT
 
 actor=$1; shift
 
-# Use getopts and make hostname require -h
+# Use getopts and make hostname require -s
 hostname=$1; shift
+if test -z "$hostname"; then
+    hostname=$(/bin/hostname -s)
+fi
+
 args="$@"
 
 if test -z "$actor"; then
