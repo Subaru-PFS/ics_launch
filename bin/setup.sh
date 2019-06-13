@@ -1,6 +1,6 @@
 # Use the project conda/python, and a shared ../local/bin
 #
-PATH=/software/conda/bin:/software/local/bin:/software/pfs_launch/bin:$PATH
+PATH=/software/conda/bin:/software/local/bin:$PATH
 
 # Use "default/" EUPS and not a specific version.
 # Use the MHS eups by default, not the DRP version.
@@ -8,12 +8,14 @@ PATH=/software/conda/bin:/software/local/bin:/software/pfs_launch/bin:$PATH
 . /software/mhs/products/eups/default/bin/setups.sh
 declare -fx setup unsetup
 
+# Get the basics (ourselves and oneCmd.py, mainly)
+#
+setup pfs_launch
+setup tron_actorcore
+
 setupForHost()
 {
-. setupProd.sh "$@"
+. $PFS_LAUNCH_DIR/bin/setupProd.sh "$@"
 }
 declare -fx setupForHost
 
-# Get the basics (oneCmd.py, mainly)
-#
-setup tron_actorcore

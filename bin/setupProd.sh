@@ -1,28 +1,76 @@
 OIFS=$IFS
 trap 'IFS=$OIFS' EXIT
 
-actor=$1; shift
+usage() {
+    echo "usage: $0 [-n] [-v] [-h HOST] PRODUCT_NAME" 1>&2
+    echo "    -n    -- echo, but do not execute script" 1>&2
+    echo "    -v    -- verbose" 1>&2
+    exit 1
+}
+doRun=true
+verbose=false
+while getopts 'nvh:?' opt; do
+    case $opt in
+        n)
+            doRun=false
+            ;;
+        v)
+            verbose=true
+            ;;
+        h)
+            host=${OPTARG}
+            ;;
+        ?)
+            usage
+            ;;
+        *)
+            echo "unknown argument: $opt" 1>&2
+            usage
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+actor=$1
 
-# Use getopts and make hostname require -s
-hostname=$1; shift
-if test -z "$hostname"; then
-    hostname=$(/bin/hostname -s)
+if test -z "$host"; then
+    host=$(/bin/hostname -s)
 fi
-
-args="$@"
 
 if test -z "$actor"; then
-    echo "usage: $0 actorName hostName" 1>&2
-    return 1
+    echo "bash subshell: $BASH_SUBSHELL" 2>&1 
+    usage
+    # exit 1
+else
+    if $verbose; then
+        echo "setting up $actor for host $host" 1>&2
+        eupsArgs="-v"
+    fi
+
+
+    # Make life a bit easier by always setting up the current version first.
+    #
+    if $doRun; then
+        setup $eupsArgs $actor 1>&2
+    else
+        echo "NOT setting up: $eupsArgs $actor" 1>&2
+    fi
+
+    # Error checking is non-existant. Bad, Loomis.
+    #
+    OIFS=$IFS
+    IFS=$'\n'
+    for versionLine in $(egrep "^$host +$actor" /software/pfs_launch/versions.txt); do
+        setupString=$(IFS=$OIFS; echo "$versionLine" | cut -d' ' -f1-2 --complement | awk "{print \"setup $eupsArgs \" \$0}")
+        # echo "versionLine: $versionLine      setupString: $setupString" 1>&2
+        if $verbose; then
+            if ! $doRun; then
+                prefix="NOT"
+            fi
+            echo "$prefix setting up: $setupString" 1>&2
+        fi
+        if $doRun; then
+            eval $setupString 1>&2
+        fi
+    done
 fi
 
-# Make life a bit easier by always setting up the current version first.
-#
-setup $args $actor
-
-# Error checking is non-existant. Bad, Loomis.
-#
-IFS=$(echo)
-for versionLine in $(egrep "^$hostname *$actor" /software/pfs_launch/versions.txt); do
-    eval $(echo $versionLine | cut -d' ' -f1-2 --complement | awk "{print \"setup $args \" \$0}")
-done
