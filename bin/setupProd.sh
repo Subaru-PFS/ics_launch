@@ -20,11 +20,11 @@ while getopts 'nvH:h?' opt "$@"; do
         v)
             verbose=true
             ;;
-        h)
+        H)
             host=${OPTARG}
             ;;
-        ?)
-            usage
+        [h?])
+            usageOnly=true
             ;;
         *)
             echo "unknown argument: $opt" 1>&2
@@ -39,16 +39,14 @@ if test -z "$host"; then
     host=$(/bin/hostname -s)
 fi
 
-if test -z "$actor"; then
-    echo "bash subshell: $BASH_SUBSHELL" 2>&1 
+# This script usually gets "source"d, so we do not want to exit
+if test -z "$actor" -o -s "$usageOnly"; then
     usage
-    # exit 1
 else
     if $verbose; then
         echo "setting up $actor for host $host" 1>&2
         eupsArgs="-v"
     fi
-
 
     # Make life a bit easier by always setting up the current version first.
     #
@@ -62,10 +60,9 @@ else
     #
     OIFS=$IFS
     IFS=$'\n'
-    for versionLine in $(egrep "^$host +$actor" /software/pfs_launch/versions.txt); do
+    for versionLine in $(egrep -s "^$host +$actor" /software/ics_launch/versions.txt); do
         setupString=$(IFS=$OIFS; echo "$versionLine" | cut -d' ' -f1-2 --complement | awk "{print \"setup $eupsArgs \" \$0}")
-        # echo "versionLine: $versionLine      setupString: $setupString" 1>&2
-        if $verbose; then
+       if $verbose; then
             if ! $doRun; then
                 prefix="NOT"
             fi
