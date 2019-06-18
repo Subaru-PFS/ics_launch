@@ -10,12 +10,15 @@ declare -fx setup unsetup
 
 # Get the basics (ourselves and oneCmd.py, mainly)
 #
-setup pfs_launch
+setup ics_launch
 setup tron_actorcore
 
+# The workhorse script, which simply scans versions.txt for version to
+# override for a given host+product.
+#
 setupForHost()
 {
-. $PFS_LAUNCH_DIR/bin/setupProd.sh "$@"
+. $ICS_LAUNCH_DIR/bin/setupProd.sh "$@"
 }
 declare -fx setupForHost
 

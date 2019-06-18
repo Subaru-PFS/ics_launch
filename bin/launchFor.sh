@@ -6,7 +6,7 @@ user=$(id -un)
 host=$(hostname -s)
 doRun=true
 
-HOSTDIR=/software/pfs_launch/hosts
+HOSTDIR=/software/ics_launch/hosts
 
 usage() {
     echo "usage: $0 [-n] [-u USER] [-h HOST]" 1>&2

@@ -1,4 +1,4 @@
-. /software/pfs_launch/bin/setup.sh
+. /software/ics_launch/bin/setup.sh
 
 host=$(hostname -s)
 cam=$(echo $host | sed 's/.*-//')
