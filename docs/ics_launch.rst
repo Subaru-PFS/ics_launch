@@ -46,4 +46,21 @@ to the EUPS `setup` function.
   which PFS users will need to know about. You can specify `-v` to
   print what is done, `-n` to not actually _do_ anything, or `-H host`
   to override the hostname used to pick up exceptions.
-  
+
+Hostname matching is actually done by prefix: the `bee/pfs-data` host
+script matches `bee-b1`, etc.
+
+NOT DONE
+--------
+
+This is a crude start. There are several things which still need to be
+worked on:
+
+- Only the canonical hostname (`hostname -s`) is used. That is
+  probably fine at Subaru, but can be insufficient elsewhere, where
+  you might want to run the archiver on the same host as tron, say.
+- the only host scripts in use are the two for the bees and the one
+  for `tron`.
+- Things can be cleaned up when the `stageManager start` ticket is done.
+- `rsyslog` and `logger` calls needed. Badly.
+- Along with that, diagnostics are awful. or non-existent.
