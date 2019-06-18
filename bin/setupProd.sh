@@ -1,15 +1,18 @@
 OIFS=$IFS
 trap 'IFS=$OIFS' EXIT
 
+# 
 usage() {
-    echo "usage: $0 [-n] [-v] [-h HOST] PRODUCT_NAME" 1>&2
+    echo "usage: setupProd.sh [-n] [-v] [-H HOST] PRODUCT_NAME" 1>&2
     echo "    -n    -- echo, but do not execute script" 1>&2
     echo "    -v    -- verbose" 1>&2
-    exit 1
 }
+
 doRun=true
 verbose=false
-while getopts 'nvh:?' opt; do
+unset OPTIND OPTARG OPTERR
+while getopts 'nvH:h?' opt "$@"; do
+    # echo "one arg: opt=$opt" 1>&2 
     case $opt in
         n)
             doRun=false
