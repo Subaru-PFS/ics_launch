@@ -30,12 +30,14 @@ fi
 echo "starting PFS processes on cam=$cam"
 
 for actor in $actors; do
-    . setupProd.sh $actor $host -v
+    # Run in subshell to keep the eups setups clean
+    ( . setupProd.sh $actor $host -v
 
-    shortName=${actor/ics_/}
-    shortName=${shortName/Actor/}
+      shortName=${actor/ics_/}
+      shortName=${shortName/Actor/}
     
-    stageManager $shortName start
+      stageManager $shortName start
+    )
 done
 
 # Local variables:
