@@ -11,7 +11,22 @@ elif test $arm = "n"; then
 else
     actors="ics_xcuActor ics_ccdActor"
 fi
-    
+
+# The interlock gatevalve signal requires a kernel device
+#
+echo "waiting for creation of rtd files"
+CHECK_FOR=/dev/rtd-aDIO-0
+n=10
+while test ! -w $CHECK_FOR -a $n -gt 0; do
+    n=$(($n-1))
+    echo "waiting for writable $CHECK_FOR" >&2
+    sleep 1
+done
+
+if test ! -w $CHECK_FOR; then
+    echo "failed to find writable $CHECK_FOR file. Deal with it!" >&2
+fi
+
 echo "starting PFS processes on cam=$cam"
 
 for actor in $actors; do
