@@ -1,0 +1,14 @@
+source /software/ics_launch/bin/setup.sh
+
+(
+	setupForHost -v tron_tron
+	tron start
+	sleep 3
+
+	( cd /data/logs/actors/archiver
+	  setupForHost -v ics_archiver
+	  nohup archiveServer.py >& shell-$$.log & )
+
+	setupForHost -v ics_alertsActor
+	stageManager alerts start
+) >/tmp/pfslaunch.log 2>&1
