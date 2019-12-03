@@ -1,0 +1,13 @@
+(
+	source /software/ics_launch/bin/setup.sh
+
+	setupForHost -v ics_roughActor
+	stageManager --name=rough1 rough start
+) > /tmp/pfslaunch.log 2>&1
+
+(
+	source /software/ics_launch/bin/setup.sh
+
+	setupForHost -v ics_enuActor
+	stageManager --name=enu_sm1 enu start
+) >> /tmp/pfslaunch.log 2>&1
