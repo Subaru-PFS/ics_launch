@@ -1,0 +1,6 @@
+source /software/ics_launch/bin/setup.sh
+
+### START PLOTDATA ###
+setupForHost -v ics_sps_engineering_plotData
+nohup plotdata >& plotdata.log &
+

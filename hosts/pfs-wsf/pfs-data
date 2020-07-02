@@ -1,0 +1,6 @@
+source /software/ics_launch/bin/setup.sh
+
+### START GEN2 ACTOR ###
+setupForHost -v ics_seqnoActor
+stageManager --name gen2 seqno start
+

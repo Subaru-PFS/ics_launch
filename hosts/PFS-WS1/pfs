@@ -1,0 +1,16 @@
+source /software/ics_launch/bin/setup.sh
+
+### START SPSGUI ###
+setupForHost -v ics_spsGUIActor
+stageManager spsGUI start
+sleep 3
+
+### START SEQUENCEPANEL ###
+setupForHost -v ics_sequencePanel
+nohup sequencePanel&
+sleep 3
+
+### START GINGA ACTOR / GINGA ###
+gingaView
+
+

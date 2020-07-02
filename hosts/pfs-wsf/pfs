@@ -1,0 +1,42 @@
+source /software/ics_launch/bin/setup.sh
+
+### START ROUGH ACTOR ###
+setupForHost -v ics_roughActor
+stageManager --name rough1 rough start
+sleep 3
+
+### MONITOR ROUGH GAUGE ###
+oneCmd.py rough1 monitor controllers=gauge period=15
+
+### START ENU ACTOR ###
+setupForHost -v ics_enuActor
+stageManager --name enu_sm2 enu start
+sleep 3
+
+### START DCB ACTOR ###
+setupForHost -v ics_dcbActor
+stageManager dcb start
+sleep 3
+
+### START SPS ACTOR ###
+setupForHost -v ics_spsActor
+stageManager sps start
+sleep 3
+
+### START IIC ACTOR ###
+setup -v ics_iicActor
+stageManager iic start
+sleep 3
+
+### START SPS ACTOR ###
+setup -v ics_testsActor
+stageManager tests start
+
+### START AITROOM ACTOR ###
+setup -v ics_aitroomActor
+stageManager aitroom start
+sleep 3
+
+### MONITOR AITROOM ###
+oneCmd.py aitroom monitor controllers=weather,weather3,chiller,tetra period=15
+

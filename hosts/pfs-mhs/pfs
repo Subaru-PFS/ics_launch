@@ -1,0 +1,21 @@
+source /software/ics_launch/bin/setup.sh
+
+### START TRON ###
+setupForHost -v tron_tron
+tron start
+sleep 3
+
+### START ARCHIVER ###
+( cd /software/mhs/logs/actors/archiver
+  setupForHost -v ics_archiver
+  nohup archiveServer.py >& shell-$$.log & )
+sleep 3
+
+### START ALERTSACTOR ###
+setupForHost -v ics_alertsActor
+stageManager alerts start
+
+### START STS SERVER ###
+setupForHost -v STSpy
+nohup STSboard.py &
+ 
