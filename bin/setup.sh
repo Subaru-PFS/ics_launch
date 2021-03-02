@@ -1,6 +1,8 @@
 # Use the project conda/python, and a shared ../local/bin
 #
 PATH=/software/conda/bin:/software/local/bin:$PATH
+# This is the environment for the ICS software.
+conda activate conda-ics
 
 # Use "default/" EUPS and not a specific version.
 # Use the MHS eups by default, not the DRP version.
