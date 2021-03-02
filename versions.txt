@@ -1,0 +1,7 @@
+# hostname product_being_setup product_to_override version_for_override
+# Note that the overrides are processed in order, and that results can be
+# different depending on the order
+#
+# e.g.:
+#bee-b1 ics_ccdActor ics_ccdActor cpl
+#bee-b1 ics_ccdActor ics_actorkeys cpl
