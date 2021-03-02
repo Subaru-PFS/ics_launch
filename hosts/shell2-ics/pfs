@@ -1,0 +1,7 @@
+(
+	source /software/ics_launch/bin/setup_drp.sh
+
+	setupForHost -v ics_drpActor
+	stageManager drp start
+
+) > /tmp/pfslaunch.log 2>&1
