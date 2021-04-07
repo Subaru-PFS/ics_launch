@@ -19,3 +19,16 @@ stageManager alerts start
 setupForHost -v STSpy
 nohup STSboard.py &
  
+### ALERTS BOT ###
+source /software/ics_launch/bin/setup.sh
+setupForHost -v ics_sps_engineering_JabberBot
+nohup alertsbot>/tmp/alertsbot.log 2>&1 &
+sleep 3
+
+### CAMERA BOTS ###
+setup -v ics_sps_engineering_JabberBot 0.7.0
+
+nohup /usr/bin/python $ICS_SPS_ENGINEERING_JABBERBOT_DIR/main.py --cam=b2 --ait=aitroom,rough1 &
+nohup /usr/bin/python $ICS_SPS_ENGINEERING_JABBERBOT_DIR/main.py --cam=r2 --ait=aitroom,rough1 &
+
+
