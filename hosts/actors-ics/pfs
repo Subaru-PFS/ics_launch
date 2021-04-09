@@ -19,6 +19,11 @@ setupForHost -v ics_dcbActor
 stageManager dcb start
 sleep 3
 
+### START ATEN ACTOR ###
+setupForHost -v ics_atenActor
+stageManager aten start
+sleep 3
+
 ### START SPS ACTOR ###
 setupForHost -v ics_spsActor
 stageManager sps start
