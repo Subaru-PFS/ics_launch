@@ -10,4 +10,8 @@
 	setupForHost -v ics_iicActor
 	stageManager iic start
 
+	setupForHost -v ics_testsActor
+	stageManager tests start
+
+
 ) > /tmp/pfslaunch.log 2>&1
