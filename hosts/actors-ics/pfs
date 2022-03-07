@@ -4,14 +4,18 @@
 	setupForHost -v ics_mebActor
 	stageManager meb start
 
-	setupForHost -v ics_spsActor
-	stageManager sps start
-
 	setupForHost -v ics_iicActor
 	stageManager iic start
 
 	setupForHost -v ics_testsActor
 	stageManager tests start
 
+	setupForHost -v ics_pebActor
+	stageManager peb start
 
+	setupForHost -v ics_fpsActor
+	stageManager fps start
+
+	setupForHost -v ics_spsActor
+	stageManager fps start
 ) > /tmp/pfslaunch.log 2>&1
