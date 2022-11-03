@@ -3,6 +3,7 @@
 
 	setupForHost -v ics_roughActor
 	stageManager --name rough1 rough start
+	stageManager --name rough2 rough start
 ) > /tmp/pfslaunch.log 2>&1
 
 (
@@ -10,6 +11,7 @@
 
 	setupForHost -v ics_enuActor
 	stageManager --name enu_sm1 enu start
+	stageManager --name enu_sm3 enu start
 ) >> /tmp/pfslaunch.log 2>&1
 
 (
@@ -18,3 +20,12 @@
 	setupForHost -v ics_dcbActor
 	stageManager dcb start
 ) >> /tmp/pfslaunch.log 2>&1
+
+(
+	source /software/ics_launch/bin/setup.sh
+
+	setupForHost -v ics_spsActor
+	stageManager sps start
+) >> /tmp/pfslaunch.log 2>&1
+
+
