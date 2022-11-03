@@ -22,7 +22,7 @@ declare -fx conda
 # <<< conda initialize <<<
 
 # This is the environment for the ICS software.
-conda activate conda-ics
+conda activate rubin3_ics
 
 # Use "default/" EUPS and not a specific version.
 # Use the MHS eups by default, not the DRP version.
@@ -34,6 +34,7 @@ declare -fx setup unsetup
 #
 setup ics_launch
 setup tron_actorcore
+setup pfs_instdata
 
 # The workhorse script, which simply scans versions.txt for version to
 # override for a given host+product.
