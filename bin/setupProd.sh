@@ -33,34 +33,34 @@ while getopts 'nvH:h?' opt "$@"; do
     esac
 done
 shift $((OPTIND-1))
-actor=$1
+__actor=$1
 
 if test -z "$host"; then
     host=$(/bin/hostname -s)
 fi
 
 # This script usually gets "source"d, so we do not want to exit
-if test -z "$actor" -o -s "$usageOnly"; then
+if test -z "$__actor" -o -s "$usageOnly"; then
     usage
 else
     if $verbose; then
-        echo "setting up $actor for host $host" 1>&2
+        echo "setting up $__actor for host $host" 1>&2
         eupsArgs="-v"
     fi
 
     # Make life a bit easier by always setting up the current version first.
     #
     if $doRun; then
-        setup $eupsArgs $actor 1>&2
+        setup $eupsArgs $__actor 1>&2
     else
-        echo "NOT setting up: $eupsArgs $actor" 1>&2
+        echo "NOT setting up: $eupsArgs $__actor" 1>&2
     fi
 
     # Error checking is non-existant. Bad, Loomis.
     #
     OIFS=$IFS
     IFS=$'\n'
-    for versionLine in $(egrep -s "^$host +$actor" /software/ics_launch/versions.txt); do
+    for versionLine in $(egrep -s "^$host +$__actor" /software/ics_launch/versions.txt); do
         setupString=$(IFS=$OIFS; echo "$versionLine" | cut -d' ' -f1-2 --complement | awk "{print \"setup $eupsArgs \" \$0}")
        if $verbose; then
             if ! $doRun; then
