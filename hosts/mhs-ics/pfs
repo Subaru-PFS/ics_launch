@@ -10,7 +10,7 @@ source /software/ics_launch/bin/setup.sh
 	  nohup archiveServer.py >& shell-$$.log & )
 
 	setupForHost -v ics_alertsActor
-	stageManager alerts start
+	stageManager alerts restart
 
 	setupForHost -v ics_gen2Actor
 	gen2switch real

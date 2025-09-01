@@ -3,6 +3,6 @@
 
 	setupForHost -v ics_drpActor
         setupForHost -v pfs_pipe2d
-	stageManager drp start
+	stageManager drp restart
 
 ) > /tmp/pfslaunch.log 2>&1
