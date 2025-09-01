@@ -1,4 +1,4 @@
-actors="meb peb tests fps sunss sps iic"
+actors="meb peb tests fps sunss sps iic pfilamps"
 (date; echo "launching ${actors}....") > /tmp/pfslaunch.log
 
 for a in $actors; do
@@ -6,6 +6,6 @@ for a in $actors; do
 	source /software/ics_launch/bin/setup.sh
 
 	setupForHost -v ics_${a}Actor
-	stageManager $a start
+	stageManager $a restart
     ) >> /tmp/pfslaunch.log 2>&1
 done
