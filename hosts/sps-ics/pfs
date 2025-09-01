@@ -2,32 +2,33 @@
 	source /software/ics_launch/bin/setup.sh
 
 	setupForHost -v ics_roughActor
-	stageManager --name rough1 rough start
-	stageManager --name rough2 rough start
+	stageManager --name rough1 rough restart
+	stageManager --name rough2 rough restart
 ) > /tmp/pfslaunch.log 2>&1
 
 (
 	source /software/ics_launch/bin/setup.sh
 
 	setupForHost -v ics_enuActor
-	stageManager --name enu_sm1 enu start
-	stageManager --name enu_sm2 enu start
-	stageManager --name enu_sm3 enu start
-	stageManager --name enu_sm4 enu start
+	stageManager --name enu_sm1 enu restart
+	stageManager --name enu_sm2 enu restart
+	stageManager --name enu_sm3 enu restart
+	stageManager --name enu_sm4 enu restart
 ) >> /tmp/pfslaunch.log 2>&1
 
 (
 	source /software/ics_launch/bin/setup.sh
 
 	setupForHost -v ics_dcbActor
-	stageManager dcb start
+	stageManager dcb restart
+	stageManager --name dcb2 dcb restart
 ) >> /tmp/pfslaunch.log 2>&1
 
 (
 	source /software/ics_launch/bin/setup.sh
 
 	setupForHost -v ics_spsActor
-	stageManager sps start
+	stageManager sps restart
 ) >> /tmp/pfslaunch.log 2>&1
 
 

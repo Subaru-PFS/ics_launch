@@ -1,4 +1,5 @@
 . /software/ics_launch/bin/setup.sh
+umask 022
 
 host=$(hostname -s)
 cam=$(echo $host | sed 's/.*-//')
@@ -36,7 +37,7 @@ for actor in $actors; do
       shortName=${actor/ics_/}
       shortName=${shortName/Actor/}
     
-      stageManager $shortName start
+      stageManager $shortName restart
     )
 done
 
