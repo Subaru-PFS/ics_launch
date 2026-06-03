@@ -1,0 +1,29 @@
+# 18321 personality file (Teledyne biases)
+
+cam=n3
+
+# Raise drive current on H4 SPI bus
+oneCmd.py hx_${cam} writeAsic reg=0x6817 value=0x34bf
+oneCmd.py hx_${cam} reconfigAsic
+
+# Turn off single-stage DAC for DSub
+oneCmd.py hx_${cam} writeAsic  reg=0x6040 value=0x0010
+
+oneCmd.py hx_${cam} setVoltage name=VDD voltage=3.3
+oneCmd.py hx_${cam} setVoltage name=VDDA voltage=3.3
+oneCmd.py hx_${cam} setVoltage name=VBiasPower voltage=3.3
+
+# Actual bias voltages to tune
+oneCmd.py hx_${cam} setVoltage name=DSub voltage=0.500
+oneCmd.py hx_${cam} setVoltage name=VReset voltage=0.250
+oneCmd.py hx_${cam} setVoltage name=VBiasGate voltage=1.70
+oneCmd.py hx_${cam} setVoltage name=Drain voltage=0.0
+oneCmd.py hx_${cam} setVoltage name=CellDrain voltage=0.01
+
+# ASIC preamp offset. Raise to lower single dark read to 8-12k ADU
+oneCmd.py hx_${cam} setVoltage name=Vrefmain voltage=2.1
+
+# Set main ASIC configuration
+oneCmd.py hx_${cam} hxconfig configName=coldIrp1 preampGain=5
+
+
