@@ -64,5 +64,7 @@ fi
 if $doRun; then
     . $hostDir/$user
 else
-    echo "DID NOT: source $hostDir/$user"
+    echo "DID NOT: source $hostDir/$user ::::"
+    cat $hostDir/$user
+    echo "::::"
 fi

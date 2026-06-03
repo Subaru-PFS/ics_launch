@@ -1,1 +1,1 @@
-setup-rubin8.sh
+setup-rubin10.sh
