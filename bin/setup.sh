@@ -1,1 +1,1 @@
-setup-rubin10.sh
+setup-rubin12.sh
