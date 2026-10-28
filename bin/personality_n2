@@ -21,4 +21,4 @@ oneCmd.py hx_${cam} setVoltage name=CellDrain voltage=0.01
 
 oneCmd.py hx_${cam} setVoltage name=Vrefmain voltage=2.05
 
-oneCmd.py hx_${cam} hxconfig configName=coldIrp1 preampGain=5
+oneCmd.py hx_${cam} hxconfig configName=coldIrp4 preampGain=5
