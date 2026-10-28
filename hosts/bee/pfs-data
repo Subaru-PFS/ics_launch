@@ -13,6 +13,9 @@ else
     actors="ics_xcuActor ics_ccdActor"
 fi
 
+# Start the PFS caching/forwarding rsyslog daemon. Yes, as pfs-data.
+/usr/sbin/rsyslogd -f /software/config/rsyslog/client/pfs.conf -i /software/config/rsyslog/hx_${host}.pid
+
 # The interlock gatevalve signal requires a kernel device
 #
 echo "waiting for creation of rtd files"
